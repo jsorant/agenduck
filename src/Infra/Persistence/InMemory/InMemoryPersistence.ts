@@ -1,8 +1,8 @@
-import { WatchListsRepository } from "../../../App/Commands/Ports/WatchListsRepository";
-import { WatchListProjections } from "../../../App/Queries/Ports/WatchListProjections";
+import { AgendaRepository as AgendaRepository } from "../../../App/Commands/Ports/AgendaRepository";
+import { AgendaProjector } from "../../../App/Queries/Ports/AgendaProjector";
 import { Persistence } from "../Persistence";
-import { InMemoryWatchListProjections } from "./InMemoryFleetProjections";
-import { InMemoryWatchListRepository } from "./InMemoryWatchListRepository";
+import { InMemoryAgendaProjector } from "./InMemoryAgendaProjector";
+import { InMemoryAgendaRepository } from "./InMemoryAgendaRepository";
 import { SharedMemory } from "./SharedMemory";
 
 export class InMemoryPersistence implements Persistence {
@@ -12,11 +12,11 @@ export class InMemoryPersistence implements Persistence {
     this.sharedMemory.reset();
   }
 
-  getWatchListsRepository(): WatchListsRepository {
-    return new InMemoryWatchListRepository(this.sharedMemory);
+  getAgendaRepository(): AgendaRepository {
+    return new InMemoryAgendaRepository(this.sharedMemory);
   }
 
-  getWatchListProjections(): WatchListProjections {
-    return new InMemoryWatchListProjections(this.sharedMemory);
+  getAgendaProjector(): AgendaProjector {
+    return new InMemoryAgendaProjector(this.sharedMemory);
   }
 }

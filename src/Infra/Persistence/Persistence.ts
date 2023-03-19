@@ -1,8 +1,8 @@
-import { WatchListsRepository } from "../../App/Commands/Ports/WatchListsRepository";
-import { WatchListProjections } from "../../App/Queries/Ports/WatchListProjections";
+import { AgendaRepository } from "../../App/Commands/Ports/AgendaRepository";
+import { AgendaProjector } from "../../App/Queries/Ports/AgendaProjector";
 
 export interface Persistence {
   reset(): Promise<void>;
-  getWatchListsRepository(): WatchListsRepository;
-  getWatchListProjections(): WatchListProjections;
+  getAgendaRepository(): AgendaRepository;
+  getAgendaProjector(): AgendaProjector;
 }

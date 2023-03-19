@@ -1,7 +1,7 @@
 import { ValueObject } from "../../DddModel/ValueObject";
 import { UniqueIdentifierGenerator } from "../../SharedKernel/UniqueIdentifier";
 
-export class WatchListId extends ValueObject {
+export class AgendaId extends ValueObject {
   public readonly value: string;
 
   private constructor(value: string) {
@@ -11,11 +11,11 @@ export class WatchListId extends ValueObject {
   }
 
   static createFrom(value: string) {
-    return new WatchListId(value);
+    return new AgendaId(value);
   }
 
   static createNew() {
     const value: string = UniqueIdentifierGenerator.generate();
-    return new WatchListId(value);
+    return new AgendaId(value);
   }
 }

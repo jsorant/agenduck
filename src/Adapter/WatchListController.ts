@@ -1,19 +1,19 @@
 import { NextFunction, Request, Response } from "express";
-import { WatchListsRepository } from "../App/Commands/Ports/WatchListsRepository";
-import { TrackCity } from "../App/Commands/TrackCity";
-import { TrackCityHandler } from "../App/Commands/TrackCityHandler";
-import { DisplayWatchList } from "../App/Queries/DisplayWatchList";
-import { DisplayWatchListHandler } from "../App/Queries/DisplayWatchListHandler";
-import { WatchListProjections } from "../App/Queries/Ports/WatchListProjections";
-import { WatchListProjection } from "../App/Queries/Views/WatchListProjection";
+import { AgendaRepository } from "../App/Commands/Ports/AgendaRepository";
+import { CreateAgendaParameters } from "../App/Commands/CreateAgenda";
+import { CreateAgenda } from "../App/Commands/CreateAgenda";
+import { GetAllAgendasOfUser } from "../App/Queries/GetAgenda";
+import { AgendaProjector } from "../App/Queries/Ports/AgendaProjector";
+import { GetAllAgendasOfUser } from "../App/Queries/GetAllAgendasOfUser";
+import { AllAgendasOfUserProjection } from "../App/Queries/Projections/AllAgendasOfUserProjection";
 
 export class WatchListController {
-  private watchListsRepository: WatchListsRepository;
-  private watchListProjections: WatchListProjections;
+  private watchListsRepository: AgendaRepository;
+  private watchListProjections: AgendaProjector;
 
   constructor(
-    watchListsRepository: WatchListsRepository,
-    watchListProjections: WatchListProjections
+    watchListsRepository: AgendaRepository,
+    watchListProjections: AgendaProjector
   ) {
     this.watchListsRepository = watchListsRepository;
     this.watchListProjections = watchListProjections;
@@ -28,10 +28,11 @@ export class WatchListController {
       //const id = req.params.id;
       const { watchlist, name } = req.body;
 
-      const command: TrackCity = new TrackCity(watchlist, name);
-      const handler: TrackCityHandler = new TrackCityHandler(
-        this.watchListsRepository
+      const command: CreateAgendaParameters = new CreateAgendaParameters(
+        watchlist,
+        name
       );
+      const handler: CreateAgenda = new CreateAgenda(this.watchListsRepository);
       await handler.handle(command);
 
       // Format response
@@ -47,11 +48,11 @@ export class WatchListController {
       const name: string = req.body.name;
 
       // Call use case
-      const query: DisplayWatchList = new DisplayWatchList(name);
-      const handler: DisplayWatchListHandler = new DisplayWatchListHandler(
+      const query: GetAllAgendasOfUser = new GetAllAgendasOfUser(name);
+      const handler: GetAllAgendasOfUser = new GetAllAgendasOfUser(
         this.watchListProjections
       );
-      const watchList: WatchListProjection = await handler.handle(query);
+      const watchList: AllAgendasOfUserProjection = await handler.handle(query);
 
       // Format response
       res.status(200);

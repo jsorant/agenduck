@@ -1,35 +1,31 @@
-import { WatchList } from "../../../Domain/WatchList/WatchList";
+import { Agenda } from "../../../Domain/Agenda/Agenda";
 
 export class SharedMemory {
-  private watchLists: Array<WatchList> = [];
+  private agendas: Array<Agenda> = [];
 
   reset() {
-    this.watchLists = [];
+    this.agendas = [];
   }
 
   // Helpers:
 
-  findWatchListFromNameOrThrow(name: string): WatchList {
-    const watchList: WatchList | undefined = this.findWatchListWithName(name);
-
-    if (watchList === undefined) {
-      throw new Error("Watchlist not found for name: " + name);
-    }
-
-    return watchList;
+  findAgendasWithUserId(userId: string): Array<Agenda> {
+    return this.agendas.filter((agenda) => agenda.userId.value === userId);
   }
 
-  findWatchListWithName(name: string): WatchList | undefined {
-    return this.watchLists.find((watchList) => watchList.name.value === name);
-  }
-
-  removeWatchListWithName(name: string): void {
-    this.watchLists = this.watchLists.filter(
-      (watchList: WatchList) => watchList.name.value !== name
+  hasAgendasWithNameAndUserId(name: string, userId: string): boolean {
+    return this.agendas.some(
+      (agenda) => agenda.userId.value === userId && agenda.name.value === name
     );
   }
 
-  addWatchList(watchList: WatchList) {
-    this.watchLists.push(watchList);
+  removeAgendaWithName(name: string): void {
+    this.agendas = this.agendas.filter(
+      (agenda: Agenda) => agenda.name.value !== name
+    );
+  }
+
+  addAgenda(agenda: Agenda) {
+    this.agendas.push(agenda);
   }
 }

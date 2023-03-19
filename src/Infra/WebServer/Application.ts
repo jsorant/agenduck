@@ -1,10 +1,10 @@
 import bodyParser from "body-parser";
 import express from "express";
 import { WatchListController } from "../../Adapter/WatchListController";
-import { WatchListsRepository } from "../../App/Commands/Ports/WatchListsRepository";
-import { WatchListProjections } from "../../App/Queries/Ports/WatchListProjections";
-import { InMemoryWatchListProjections } from "../Persistence/InMemory/InMemoryFleetProjections";
-import { InMemoryWatchListRepository } from "../Persistence/InMemory/InMemoryWatchListRepository";
+import { AgendaRepository } from "../../App/Commands/Ports/AgendaRepository";
+import { AgendaProjector } from "../../App/Queries/Ports/AgendaProjector";
+import { InMemoryAgendaProjector } from "../Persistence/InMemory/InMemoryAgendaProjector";
+import { InMemoryAgendaRepository } from "../Persistence/InMemory/InMemoryAgendaRepository";
 import { SharedMemory } from "../Persistence/InMemory/SharedMemory";
 import { ErrorHandler } from "./ErrorHandler";
 import { makeWatchListRouter } from "./Routes/WatchListRouter";
@@ -22,8 +22,8 @@ export class Application {
     // load routes
     // TODO DI
     const sm: SharedMemory = new SharedMemory();
-    const repo: WatchListsRepository = new InMemoryWatchListRepository(sm);
-    const projs: WatchListProjections = new InMemoryWatchListProjections(sm);
+    const repo: AgendaRepository = new InMemoryAgendaRepository(sm);
+    const projs: AgendaProjector = new InMemoryAgendaProjector(sm);
     const controller: WatchListController = new WatchListController(
       repo,
       projs

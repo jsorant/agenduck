@@ -1,7 +1,7 @@
 const common = {
   format: ["progress"],
   requireModule: ["ts-node/register"],
-  require: ["tests/StepsDefinitions/*.ts"],
+  require: ["features/**/*.ts"],
   publishQuiet: true,
 };
 

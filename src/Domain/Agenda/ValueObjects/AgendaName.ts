@@ -1,6 +1,6 @@
 import { ValueObject } from "../../DddModel/ValueObject";
 
-export class WatchListName extends ValueObject {
+export class AgendaName extends ValueObject {
   public readonly value: string;
 
   constructor(value: string) {

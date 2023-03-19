@@ -1,5 +1,5 @@
-import { Query } from "./Query";
+import { QueryParameters } from "./Query";
 
-export interface QueryHandler<TQuery extends Query, TReturn> {
-  handle(query: TQuery): Promise<TReturn>;
+export interface Query<TQueryParameters extends QueryParameters, TResult> {
+  handle(query: TQueryParameters): Promise<TResult>;
 }

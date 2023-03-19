@@ -14,7 +14,7 @@
   "scripts": {
     "start:inmemory": "tsc && node dist/src/Main/InMemory/Main.js",
     "dev:inmemory": "ts-node src/Main/InMemory/Main.ts",
-    "test": "cucumber-js ./tests/Features/",
+    "test": "cucumber-js",
     "build": "tsc"
   },
   "dependencies": {

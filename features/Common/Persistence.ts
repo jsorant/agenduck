@@ -10,8 +10,8 @@ async function setupWorldWithPersistence(
   world: any,
   persistence: Persistence
 ): Promise<void> {
-  world.watchListsRepository = persistence.getWatchListsRepository();
-  world.watchListProjections = persistence.getWatchListProjections();
+  world.agendaRepository = persistence.getAgendaRepository();
+  world.agendaProjector = persistence.getAgendaProjector();
 }
 
 async function createInMemoryPersistence(): Promise<Persistence> {
